@@ -11,15 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "carrito")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Carrito {
     
     @Id
@@ -38,5 +32,41 @@ public class Carrito {
 
     @Column(name = "estado")
     private String estado;
+
+    
+
+    public Integer getIdCarrito() {
+        return idCarrito;
+    }
+
+    public void setIdCarrito(Integer idCarrito) {
+        this.idCarrito = idCarrito;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public LocalDateTime getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(LocalDateTime fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    
 
 }

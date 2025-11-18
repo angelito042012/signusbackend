@@ -8,15 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuario_cliente")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class UsuarioCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,23 +29,73 @@ public class UsuarioCliente {
     @Column(name = "oauth_id")
     private String oauthId;
 
-    private LocalDateTime fecha_registro;
-    private String estado;
-}
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
 
-/*
- * @Entity
-@Table(name = "usuario_sistema")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class UsuarioSistema {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUsuario;
-
-    private String email;
-    private String contrasena;
+    @Column(name = "estado")
     private String estado;
+
+
+
+
+    
+
+    public Integer getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public String getOauthProvider() {
+        return oauthProvider;
+    }
+
+    public void setOauthProvider(String oauthProvider) {
+        this.oauthProvider = oauthProvider;
+    }
+
+    public String getOauthId() {
+        return oauthId;
+    }
+
+    public void setOauthId(String oauthId) {
+        this.oauthId = oauthId;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+
+    
 }
- */

@@ -6,15 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "metodo_pago")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class MetodoPago {
 
     @Id
@@ -27,4 +22,32 @@ public class MetodoPago {
 
     @Column(name = "descripcion")
     private String descripcion;
+
+    public Integer getIdMetodoPago() {
+        return idMetodoPago;
+    }
+
+    public void setIdMetodoPago(Integer idMetodoPago) {
+        this.idMetodoPago = idMetodoPago;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+
+
+    
 }

@@ -86,14 +86,6 @@
 			<version>2.8.0</version>
 		</dependency>
 
-		<!-- Lombok para reducir código repetitivo -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.38</version>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Oauth2.0 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -105,6 +97,7 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.12.5</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>

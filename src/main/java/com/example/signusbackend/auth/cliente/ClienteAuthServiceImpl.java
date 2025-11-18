@@ -10,15 +10,20 @@ import com.example.signusbackend.entity.UsuarioCliente;
 import com.example.signusbackend.repository.ClienteRepository;
 import com.example.signusbackend.repository.UsuarioClienteRepository;
 
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class ClienteAuthServiceImpl implements ClienteAuthService {
     
     private final UsuarioClienteRepository usuarioRepo;
     private final ClienteRepository clienteRepo;
     private final PasswordEncoder passwordEncoder;
+
+    public ClienteAuthServiceImpl(UsuarioClienteRepository usuarioRepo, ClienteRepository clienteRepo,
+            PasswordEncoder passwordEncoder) {
+        this.usuarioRepo = usuarioRepo;
+        this.clienteRepo = clienteRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public String login(ClienteLoginRequest request) {
