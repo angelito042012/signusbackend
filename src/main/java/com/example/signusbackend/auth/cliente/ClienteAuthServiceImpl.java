@@ -3,8 +3,8 @@ package com.example.signusbackend.auth.cliente;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.signusbackend.auth.cliente.dto.ClienteLoginRequest;
-import com.example.signusbackend.auth.cliente.dto.ClienteRegisterRequest;
+import com.example.signusbackend.auth.dto.ClienteLoginRequest;
+import com.example.signusbackend.auth.dto.ClienteRegisterRequest;
 import com.example.signusbackend.entity.Cliente;
 import com.example.signusbackend.entity.UsuarioCliente;
 import com.example.signusbackend.repository.ClienteRepository;

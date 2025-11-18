@@ -1,4 +1,4 @@
-package com.example.signusbackend.auth.cliente.dto;
+package com.example.signusbackend.auth.dto;
 
 import lombok.Data;
 

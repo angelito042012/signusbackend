@@ -1,5 +1,5 @@
 package com.example.signusbackend.security;
 
-public class JwtProvider {
+public class AppUsersDetailsService {
     
 }

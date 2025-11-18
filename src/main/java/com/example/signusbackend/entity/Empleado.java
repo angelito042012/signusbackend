@@ -13,21 +13,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "empleado")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cliente {
+public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cliente")
-    private Integer idCliente;
+    @Column(name = "id_empleado")
+    private Integer idEmpleado;
 
     @OneToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false, unique = true)
-    private UsuarioCliente usuarioCliente;
-
-    //Revisar auth/cliente/dto/ClienteRegisterRequest.java
+    private UsuarioEmpleado usuarioEmpleado;
 
     @Column(name = "nombres")
     private String nombres;
@@ -38,9 +36,9 @@ public class Cliente {
     @Column(name = "dni")
     private String dni;
 
-    @Column(name = "direccion")
-    private String direccion;
-
     @Column(name = "telefono")
     private String telefono;
+
+    @Column(name = "rol")
+    private String rol;
 }

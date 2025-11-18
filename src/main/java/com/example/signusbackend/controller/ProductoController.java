@@ -2,8 +2,14 @@ package com.example.signusbackend.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,9 +29,44 @@ public class ProductoController {
         this.productoService = productoService;
     }
     
+    // LISTAR
     @GetMapping
     public List<Producto> listar() {
         return productoService.listarProductos();
+    }
+
+    // OBTENER POR ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Producto> obtener(@PathVariable Integer id) {
+        return ResponseEntity.ok(productoService.obtenerProducto(id));
+    }
+
+    // CREAR
+    @PostMapping
+    public ResponseEntity<Producto> crear(@RequestBody Producto producto) {
+        return ResponseEntity.ok(productoService.crearProducto(producto));
+    }
+
+    // ACTUALIZAR
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> actualizar(
+            @PathVariable Integer id,
+            @RequestBody Producto producto
+    ) {
+        return ResponseEntity.ok(productoService.actualizarProducto(id, producto));
+    }
+
+    // ELIMINAR
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+        productoService.eliminarProducto(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // FILTRAR POR CATEGORIA
+    @GetMapping("/categoria/{idCategoria}")
+    public ResponseEntity<List<Producto>> listarPorCategoria(@PathVariable Integer idCategoria) {
+        return ResponseEntity.ok(productoService.listarPorCategoria(idCategoria));
     }
     
 }

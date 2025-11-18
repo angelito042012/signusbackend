@@ -1,7 +1,7 @@
 package com.example.signusbackend.auth.cliente;
 
-import com.example.signusbackend.auth.cliente.dto.ClienteLoginRequest;
-import com.example.signusbackend.auth.cliente.dto.ClienteRegisterRequest;
+import com.example.signusbackend.auth.dto.ClienteLoginRequest;
+import com.example.signusbackend.auth.dto.ClienteRegisterRequest;
 import com.example.signusbackend.entity.UsuarioCliente;
 
 public interface ClienteAuthService {

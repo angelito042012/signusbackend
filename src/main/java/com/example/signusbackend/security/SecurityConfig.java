@@ -1,5 +1,5 @@
 package com.example.signusbackend.security;
 
-public class CustomOAuth2UserService {
+public class SecurityConfig {
     
 }

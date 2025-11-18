@@ -22,7 +22,7 @@ public class UsuarioCliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_usuario;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email",unique = true, nullable = false)
     private String email;
     private String contrasena;
 
