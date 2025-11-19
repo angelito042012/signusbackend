@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Admin</title>
+</head>
+<body>
+    <h2>Acceso Administrador</h2>
+
+    <form id="loginForm" onsubmit="return false;">
+        <label>Email:</label>
+        <input type="text" id="email" required><br><br>
+
+        <label>Contraseña:</label>
+        <input type="password" id="password" required><br><br>
+
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <p id="error" style="color:red;"></p>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            console.log("Enviando petición…");
+
+            const res = await fetch("http://localhost:8080/api/auth/login-admin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: document.getElementById("email").value,
+                    password: document.getElementById("password").value
+                })
+            });
+
+            if (!res.ok) {
+                document.getElementById("error").innerText = "Credenciales incorrectas";
+                return;
+            }
+
+            const data = await res.json();
+            localStorage.setItem("jwt", data.token);
+
+            window.location.href = "/swagger-ui/index.html";
+        });
+    </script>
+</body>
+</html>

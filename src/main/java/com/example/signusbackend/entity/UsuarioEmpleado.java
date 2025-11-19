@@ -30,6 +30,8 @@ public class UsuarioEmpleado {
     @Column(name = "estado")
     private String estado;
 
+    
+
     public Integer getIdUsuario() {
         return idUsuario;
     }

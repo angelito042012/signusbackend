@@ -11,6 +11,6 @@ public class SwaggerController {
     @Hidden
 	@GetMapping("/")
     public RedirectView redirectToSwagger() {
-        return new RedirectView("/api/swagger-ui");
+        return new RedirectView("/api/auth/login-admin");
     }
 }

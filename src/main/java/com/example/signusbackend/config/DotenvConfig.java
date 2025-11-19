@@ -6,7 +6,10 @@ import org.springframework.context.annotation.Configuration;
 public class DotenvConfig {
 
     static {
-        io.github.cdimascio.dotenv.Dotenv dotenv = io.github.cdimascio.dotenv.Dotenv.configure().ignoreIfMissing().load();
+        io.github.cdimascio.dotenv.Dotenv dotenv = io.github.cdimascio.dotenv.Dotenv
+        .configure()
+        .directory("/")
+        .ignoreIfMissing().load();
         dotenv.entries().forEach(entry ->
                 System.setProperty(entry.getKey(), entry.getValue())
         );

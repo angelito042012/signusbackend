@@ -18,6 +18,8 @@ public class UsuarioCliente {
 
     @Column(name = "email",unique = true, nullable = false)
     private String email;
+
+    @Column(name = "contrasena", nullable = false)
     private String contrasena;
 
     //si vamos a requerir usar propiedades que tienen guiones bajos pára los servicios

@@ -53,7 +53,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     @Override
     public Optional<Empleado> obtenerPorUsuario(Integer idUsuario) {
-        return empleadoRepository.findByUsuarioEmpleadoIdUsuario(idUsuario);
+        return empleadoRepository.findByUsuarioEmpleado_IdUsuario(idUsuario);
     }
 
 }

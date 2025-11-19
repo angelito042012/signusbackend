@@ -1,5 +1,5 @@
 package com.example.signusbackend.auth.dto;
 
-public class EmpleadoLoginRequest {
-    
+public record JwtResponse(String token) {
+
 }

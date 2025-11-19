@@ -8,5 +8,5 @@ import com.example.signusbackend.entity.Empleado;
 
 public interface EmpleadoRepository extends JpaRepository<Empleado, Integer> {
     // Muy útil para autenticación y obtener info rápidamente
-    Optional<Empleado> findByUsuarioEmpleadoIdUsuario(Integer idUsuario);
+    Optional<Empleado> findByUsuarioEmpleado_IdUsuario(Integer idUsuario);
 }
