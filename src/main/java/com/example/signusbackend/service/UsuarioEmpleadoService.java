@@ -12,5 +12,12 @@ public interface UsuarioEmpleadoService {
     UsuarioEmpleado save(UsuarioEmpleado usuario);
 
     List<UsuarioEmpleado> findAll();
+
     Optional<UsuarioEmpleado> findById(Integer id);
+
+    UsuarioEmpleado registrarUsuarioEmpleado(UsuarioEmpleado usuarioEmpleado);
+
+    Optional<UsuarioEmpleado> obtenerPorEmail(String email);
+
+    boolean existePorEmail(String email);
 }

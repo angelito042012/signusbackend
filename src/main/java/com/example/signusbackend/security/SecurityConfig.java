@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 
 import com.example.signusbackend.security.jwt.JwtAuthenticatorFilter;
 
@@ -27,18 +28,6 @@ public class SecurityConfig {
         this.jwtAuthenticatorFilter = jwtAuthenticatorFilter;
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(
-                "/api/auth/login-admin",    
-                "/api/auth/**",
-                "/api/productos/**",
-                "/api/categorias/**",
-                "/admin-login",
-                "/admin-login.html",
-                "/swagger-auth.js"
-        );
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -49,15 +38,18 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-
-                        .requestMatchers("/api/auth/login-admin").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/favicon.ico").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+                        //.requestMatchers("/api/auth/register-admin").permitAll() // Permitir acceso público
+                        //.requestMatchers("/api/auth/login-admin").permitAll()
                         .requestMatchers("/api/productos/**").permitAll()
                         .requestMatchers("/api/categorias/**").permitAll()
                         .requestMatchers("/admin-login", "/admin-login.html", "/swagger-auth.js").permitAll()
 
                         // Swagger (solo ADMIN)
-                        .requestMatchers("/swagger-ui/**", "/api-docs/**").hasRole("ADMIN")
+                        .requestMatchers("/api/swagger-ui/**", "/api/docs/**").hasRole("ADMIN")
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasRole("ADMIN")
 
                         // Cliente
                         .requestMatchers("/api/carrito/**").hasRole("CLIENTE")

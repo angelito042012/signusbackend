@@ -29,17 +29,25 @@ public class JwtAuthenticatorFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // NO filtrar login admin ni otros públicos
-        return path.startsWith("/api/auth/")
+        return 
+            path.equals("/api/auth/register-admin")
+            || path.equals("/api/auth/login-admin")
             || path.equals("/admin-login")
+            || path.equals("/admin-register")
             || path.equals("/admin-login.html")
+            || path.equals("/admin-register.html")
             || path.equals("/swagger-auth.js");
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        System.out.println("Processing JWT authentication filter");
         
         String authHeader = request.getHeader("Authorization");
+
+        System.out.println("Authorization Header: " + authHeader);
 
         try {
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
@@ -53,9 +61,9 @@ public class JwtAuthenticatorFilter extends OncePerRequestFilter {
                         var authToken = new UsernamePasswordAuthenticationToken(
                                 email,       // principal
                                 null,
-                                List.of(new SimpleGrantedAuthority("ROLE_" + role))
+                                List.of(new SimpleGrantedAuthority(/*"ROLE_" + */role))
                         );
-
+                        System.out.println("Rol extraído del token: " + role);
                         SecurityContextHolder.getContext().setAuthentication(authToken);
                     }
                 }

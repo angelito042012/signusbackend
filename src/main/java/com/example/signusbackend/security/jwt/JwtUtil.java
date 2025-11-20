@@ -39,7 +39,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 .subject(email)
-                .claim("role", role)
+                .claim("role", "ROLE_" + role)
                 .issuedAt(now)
                 .expiration(expiry)
                 .signWith(key)
@@ -65,9 +65,9 @@ public class JwtUtil {
 
     private Claims getAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith(getSecretKey())
+                .setSigningKey(getSecretKey())
                 .build()
-                .parseSignedClaims(token)
-                .getPayload();
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

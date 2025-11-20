@@ -6,9 +6,12 @@ import java.util.Optional;
 import com.example.signusbackend.entity.Empleado;
 
 public interface EmpleadoService {
+
     List<Empleado> listarEmpleados();
 
     Empleado registrarEmpleado(Empleado empleado);
+
+    Empleado registrarEmpleadoConUsuario(Empleado empleado);
 
     Empleado actualizarEmpleado(Integer id, Empleado empleado);
 

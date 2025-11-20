@@ -1,9 +1,11 @@
 package com.example.signusbackend.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +16,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.signusbackend.auth.dto.AdminRegisterDTO;
 import com.example.signusbackend.entity.Empleado;
+import com.example.signusbackend.entity.UsuarioEmpleado;
 import com.example.signusbackend.service.EmpleadoService;
+import com.example.signusbackend.service.UsuarioEmpleadoService;
 
 @RestController
 @RequestMapping("/api/empleados")
 @CrossOrigin(origins = "*")
 public class EmpleadoController {
     private final EmpleadoService empleadoService;
+    private final UsuarioEmpleadoService usuarioEmpleadoService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public EmpleadoController(EmpleadoService empleadoService) {
+    public EmpleadoController(EmpleadoService empleadoService, UsuarioEmpleadoService usuarioEmpleadoService, BCryptPasswordEncoder passwordEncoder) {
         this.empleadoService = empleadoService;
+        this.usuarioEmpleadoService = usuarioEmpleadoService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // ========================
@@ -80,4 +89,35 @@ public class EmpleadoController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
+
+    /*@PostMapping("/register-admin")
+    public ResponseEntity<String> registrarAdmin(@RequestBody AdminRegisterDTO adminDTO) {
+        // Validar si el email ya existe
+        if (usuarioEmpleadoService.existePorEmail(adminDTO.getEmail())) {
+            return ResponseEntity.badRequest().body("El email ya está registrado.");
+        }
+
+        // Crear el usuario empleado (credenciales)
+        UsuarioEmpleado usuarioEmpleado = new UsuarioEmpleado();
+        usuarioEmpleado.setEmail(adminDTO.getEmail());
+        usuarioEmpleado.setContrasena(passwordEncoder.encode(adminDTO.getPassword())); // Encriptar la contraseña
+        usuarioEmpleado.setFechaRegistro(new Date());
+        usuarioEmpleado.setEstado("ACTIVO"); // Activar por defecto
+
+        // Crear el empleado (datos personales)
+        Empleado empleado = new Empleado();
+        empleado.setNombres(adminDTO.getNombres());
+        empleado.setApellidos(adminDTO.getApellidos());
+        empleado.setDni(adminDTO.getDni());
+        empleado.setTelefono(adminDTO.getTelefono());
+        empleado.setRol("ADMIN");
+        empleado.setUsuarioEmpleado(usuarioEmpleado); // Relación con UsuarioEmpleado
+
+        // Guardar en la base de datos
+        empleadoService.registrarEmpleadoConUsuario(empleado);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Administrador registrado exitosamente.");
+    }*/
 }

@@ -6,16 +6,20 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.signusbackend.entity.Empleado;
+import com.example.signusbackend.entity.UsuarioEmpleado;
 import com.example.signusbackend.repository.EmpleadoRepository;
 import com.example.signusbackend.service.EmpleadoService;
+import com.example.signusbackend.service.UsuarioEmpleadoService;
 
 @Service
 public class EmpleadoServiceImpl implements EmpleadoService {
 
     private final EmpleadoRepository empleadoRepository;
+    private final UsuarioEmpleadoService usuarioEmpleadoService;
 
-    public EmpleadoServiceImpl(EmpleadoRepository empleadoRepository) {
+    public EmpleadoServiceImpl(EmpleadoRepository empleadoRepository, UsuarioEmpleadoService usuarioEmpleadoService) {
         this.empleadoRepository = empleadoRepository;
+        this.usuarioEmpleadoService = usuarioEmpleadoService;
     }
 
     @Override
@@ -54,6 +58,16 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Override
     public Optional<Empleado> obtenerPorUsuario(Integer idUsuario) {
         return empleadoRepository.findByUsuarioEmpleado_IdUsuario(idUsuario);
+    }
+
+    @Override
+    public Empleado registrarEmpleadoConUsuario(Empleado empleado) {
+        // Guardar primero el UsuarioEmpleado
+        UsuarioEmpleado usuarioEmpleado = empleado.getUsuarioEmpleado();
+        usuarioEmpleadoService.registrarUsuarioEmpleado(usuarioEmpleado);
+
+        // Luego guardar el Empleado con la relación al UsuarioEmpleado
+        return empleadoRepository.save(empleado);
     }
 
 }

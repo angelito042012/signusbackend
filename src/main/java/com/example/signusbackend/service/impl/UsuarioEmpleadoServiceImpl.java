@@ -38,5 +38,20 @@ public class UsuarioEmpleadoServiceImpl implements UsuarioEmpleadoService {
     public Optional<UsuarioEmpleado> findById(Integer id) {
         return repo.findById(id);
     }
+
+    @Override
+    public UsuarioEmpleado registrarUsuarioEmpleado(UsuarioEmpleado usuarioEmpleado) {
+        return repo.save(usuarioEmpleado);
+    }
+
+    @Override
+    public Optional<UsuarioEmpleado> obtenerPorEmail(String email) {
+        return repo.findByEmail(email);
+    }
+
+    @Override
+    public boolean existePorEmail(String email) {
+        return repo.findByEmail(email).isPresent();
+    }
     
 }
