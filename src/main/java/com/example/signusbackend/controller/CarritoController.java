@@ -17,6 +17,8 @@ import com.example.signusbackend.entity.CarritoDetalle;
 import com.example.signusbackend.service.CarritoDetalleService;
 import com.example.signusbackend.service.CarritoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/carritos")
 @CrossOrigin(origins = "*")
@@ -33,30 +35,36 @@ public class CarritoController {
 
     // Listar carritos (admin)
     @GetMapping
+    @Operation(summary = "Listar todos los carritos", description = "Obtiene una lista de todos los carritos registrados en el sistema. No deberia de usarse en el frontend.")
     public List<Carrito> listarCarritos() {
         return carritoService.listarCarritos();
     }
 
     // Crear un carrito para un cliente
+    // Aunque el cliente ya deberia de tener un carrito por default
     @PostMapping("/crear/{idCliente}")
+    @Operation(summary = "Crear un carrito para un cliente", description = "Crea un nuevo carrito asociado a un cliente específico.")
     public Carrito crearCarrito(@PathVariable Integer idCliente) {
         return carritoService.crearCarrito(idCliente);
     }
 
     // Obtener carrito por idCliente
     @GetMapping("/cliente/{idCliente}")
+    @Operation(summary = "Obtener carrito por cliente", description = "Obtiene el carrito asociado a un cliente específico utilizando su ID.")
     public Carrito obtenerCarritoPorCliente(@PathVariable Integer idCliente) {
         return carritoService.obtenerCarritoPorCliente(idCliente);
     }
 
     // Actualizar fecha de modificación
     @PutMapping("/{idCarrito}")
+    @Operation(summary = "Actualizar la fecha de modificación de un carrito", description = "Actualiza la fecha de modificación de un carrito específico utilizando su ID.")
     public Carrito actualizarFecha(@PathVariable Integer idCarrito) {
         return carritoService.actualizarFechaModificacion(idCarrito);
     }
 
     // Eliminar carrito
     @DeleteMapping("/{idCarrito}")
+    @Operation(summary = "Eliminar un carrito", description = "Elimina un carrito específico del sistema utilizando su ID. No deberia de usarse en el frontend.")
     public void eliminarCarrito(@PathVariable Integer idCarrito) {
         carritoService.eliminarCarrito(idCarrito);
     }

@@ -33,6 +33,8 @@ public class OperacionInventario {
     @Column(name = "motivo")
     private String motivo;
 
+    
+
     public Integer getIdOperacion() {
         return idOperacion;
     }
@@ -63,6 +65,14 @@ public class OperacionInventario {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
     

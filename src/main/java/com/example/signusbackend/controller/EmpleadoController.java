@@ -22,6 +22,8 @@ import com.example.signusbackend.entity.UsuarioEmpleado;
 import com.example.signusbackend.service.EmpleadoService;
 import com.example.signusbackend.service.UsuarioEmpleadoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/empleados")
 @CrossOrigin(origins = "*")
@@ -40,6 +42,7 @@ public class EmpleadoController {
     // LISTAR EMPLEADOS
     // ========================
     @GetMapping
+    @Operation(summary = "Listar todos los empleados", description = "Obtiene una lista de todos los empleados registrados en el sistema.")
     public ResponseEntity<List<Empleado>> listarEmpleados() {
         return ResponseEntity.ok(empleadoService.listarEmpleados());
     }
@@ -48,6 +51,7 @@ public class EmpleadoController {
     // REGISTRAR EMPLEADO
     // ========================
     @PostMapping
+    @Operation(summary = "Registrar un nuevo empleado", description = "Registra un nuevo empleado en el sistema. No deberia usarse en el frontend.")
     public ResponseEntity<Empleado> registrarEmpleado(@RequestBody Empleado empleado) {
 
         // opcional: validar campos requeridos
@@ -63,6 +67,7 @@ public class EmpleadoController {
     // ACTUALIZAR EMPLEADO
     // ========================
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un empleado existente", description = "Actualiza los detalles de un empleado específico utilizando su ID.")
     public ResponseEntity<Empleado> actualizarEmpleado(
             @PathVariable Integer id,
             @RequestBody Empleado empleadoActualizado) {
@@ -75,6 +80,7 @@ public class EmpleadoController {
     // ELIMINAR EMPLEADO
     // ========================
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un empleado", description = "Elimina un empleado específico del sistema utilizando su ID.")
     public ResponseEntity<Void> eliminarEmpleado(@PathVariable Integer id) {
         empleadoService.eliminarEmpleado(id);
         return ResponseEntity.noContent().build();
@@ -84,6 +90,7 @@ public class EmpleadoController {
     // BUSCAR EMPLEADO POR idUsuario (FK)
     // ========================
     @GetMapping("/usuario/{idUsuario}")
+    @Operation(summary = "Obtener un empleado por ID de usuario", description = "Obtiene los detalles de un empleado específico utilizando el ID de su usuario asociado.")
     public ResponseEntity<Empleado> obtenerPorUsuario(@PathVariable Integer idUsuario) {
         return empleadoService.obtenerPorUsuario(idUsuario)
                 .map(ResponseEntity::ok)
@@ -92,7 +99,7 @@ public class EmpleadoController {
 
 
 
-    /*@PostMapping("/register-admin")
+    /*@PostMapping("/register/admin")
     public ResponseEntity<String> registrarAdmin(@RequestBody AdminRegisterDTO adminDTO) {
         // Validar si el email ya existe
         if (usuarioEmpleadoService.existePorEmail(adminDTO.getEmail())) {

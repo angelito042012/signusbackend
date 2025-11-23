@@ -32,6 +32,8 @@ public class UsuarioEmpleado {
 
     
 
+    
+
     public Integer getIdUsuario() {
         return idUsuario;
     }

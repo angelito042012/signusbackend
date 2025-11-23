@@ -29,8 +29,12 @@ public class MovimientoInventario {
     private Producto producto;
 
     @ManyToOne
-    @JoinColumn(name = "id_operacion", referencedColumnName = "id_operacion", nullable = false)
+    @JoinColumn(name = "id_operacion", referencedColumnName = "id_operacion", nullable = true)
     private OperacionInventario operacion;
+
+    @ManyToOne
+    @JoinColumn(name = "id_venta", referencedColumnName = "id_venta", nullable = true)
+    private Venta venta;
 
     @Column(name = "tipo_movimiento", nullable = false)
     private String tipoMovimiento;
@@ -49,4 +53,96 @@ public class MovimientoInventario {
 
     @Column(name = "motivo")
     private String motivo;
+
+    
+
+    public Integer getIdMovimiento() {
+        return idMovimiento;
+    }
+
+    public void setIdMovimiento(Integer idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
+
+    public Empleado getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Empleado encargado) {
+        this.encargado = encargado;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public OperacionInventario getOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(OperacionInventario operacion) {
+        this.operacion = operacion;
+    }
+
+    public String getTipoMovimiento() {
+        return tipoMovimiento;
+    }
+
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+    }
+
+    public void setTipoMovimiento(String tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Integer getStockAnterior() {
+        return stockAnterior;
+    }
+
+    public void setStockAnterior(Integer stockAnterior) {
+        this.stockAnterior = stockAnterior;
+    }
+
+    public Integer getStockNuevo() {
+        return stockNuevo;
+    }
+
+    public void setStockNuevo(Integer stockNuevo) {
+        this.stockNuevo = stockNuevo;
+    }
+
+    public LocalDateTime getFechaMovimiento() {
+        return fechaMovimiento;
+    }
+
+    public void setFechaMovimiento(LocalDateTime fechaMovimiento) {
+        this.fechaMovimiento = fechaMovimiento;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    
 }

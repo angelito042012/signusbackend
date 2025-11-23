@@ -70,4 +70,9 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         return empleadoRepository.save(empleado);
     }
 
+    @Override
+    public Optional<Empleado> buscarPorUsuario(UsuarioEmpleado usuarioEmpleado) {
+        return empleadoRepository.findByUsuarioEmpleado(usuarioEmpleado);
+    }
+
 }

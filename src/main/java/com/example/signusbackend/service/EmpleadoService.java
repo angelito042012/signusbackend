@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.signusbackend.entity.Empleado;
+import com.example.signusbackend.entity.UsuarioEmpleado;
 
 public interface EmpleadoService {
 
@@ -18,4 +19,6 @@ public interface EmpleadoService {
     void eliminarEmpleado(Integer id);
 
     Optional<Empleado> obtenerPorUsuario(Integer idUsuario);
+
+    Optional<Empleado> buscarPorUsuario(UsuarioEmpleado usuarioEmpleado);
 }

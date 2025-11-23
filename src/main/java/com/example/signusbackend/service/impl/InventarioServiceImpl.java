@@ -30,11 +30,8 @@ public class InventarioServiceImpl implements InventarioService {
 
     @Override
     public Inventario obtenerPorIdProducto(Integer idProducto) {
-        Inventario inv = inventarioRepository.findByProducto_IdProducto(idProducto);
-        if (inv == null) {
-            throw new RuntimeException("Inventario no encontrado para el producto ID: " + idProducto);
-        }
-        return inv;
+        return inventarioRepository.findByProducto_IdProducto(idProducto)
+            .orElseThrow(() -> new RuntimeException("Inventario no encontrado para el producto ID: " + idProducto));
     }
 
     @Override

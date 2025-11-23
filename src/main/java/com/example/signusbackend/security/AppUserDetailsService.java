@@ -38,7 +38,8 @@ public class AppUserDetailsService implements UserDetailsService{
             ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                     .getRequest();
 
-        boolean isAdminLogin = req.getRequestURI().contains("/login-admin");
+        boolean isAdminLogin = req.getRequestURI().contains("/login/admin");
+        boolean isEmpleadoLogin = req.getRequestURI().contains("/login/empleado");
 
         // ================================
         // 1️⃣ Si es login de ADMIN → solo buscar empleados
@@ -61,8 +62,35 @@ public class AppUserDetailsService implements UserDetailsService{
             );
         }
 
+
         // ================================
-        // 2️⃣ Login de cliente → SOLO buscar clientes
+        // 2️⃣ Login de EMPLEADO → buscar empleados no administradores
+        // ================================
+        if (isEmpleadoLogin) {
+
+            UsuarioEmpleado loginEmpleado =
+                    usuarioEmpleadoRepo.findByEmail(email)
+                            .orElseThrow(() -> new UsernameNotFoundException("Empleado no encontrado"));
+
+            Empleado empleado =
+                    empleadoRepo.findByUsuarioEmpleado_IdUsuario(loginEmpleado.getIdUsuario())
+                            .orElseThrow(() -> new UsernameNotFoundException("Empleado sin datos extendidos"));
+
+            // Aquí puedes filtrar roles si es necesario (por ejemplo, excluir administradores)
+            if ("ADMIN".equalsIgnoreCase(empleado.getRol())) {
+                throw new UsernameNotFoundException("El usuario no tiene permisos para este tipo de login");
+            }
+
+            return new AppUserDetails(
+                    loginEmpleado.getEmail(),
+                    loginEmpleado.getContrasena(),
+                    empleado.getRol(),
+                    loginEmpleado.getEstado().equalsIgnoreCase("ACTIVO")
+            );
+        }
+
+        // ================================
+        // 3️⃣ Login de cliente → SOLO buscar clientes
         // ================================
         UsuarioCliente cliente =
                 usuarioClienteRepo.findByEmail(email)

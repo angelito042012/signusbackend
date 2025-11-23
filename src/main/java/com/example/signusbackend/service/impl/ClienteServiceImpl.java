@@ -39,8 +39,11 @@ public class ClienteServiceImpl implements ClienteService{
         clienteExistente.setNombres(cliente.getNombres());
         clienteExistente.setApellidos(cliente.getApellidos());
         clienteExistente.setDni(cliente.getDni());
-        clienteExistente.setDireccion(cliente.getDireccion());
         clienteExistente.setTelefono(cliente.getTelefono());
+        clienteExistente.setDireccion(cliente.getDireccion());
+        clienteExistente.setDepartamento(cliente.getDepartamento());
+        clienteExistente.setProvincia(cliente.getProvincia());
+        clienteExistente.setDistrito(cliente.getDistrito());
 
         // Guarda los cambios en la base de datos
         return clienteRepository.save(clienteExistente);

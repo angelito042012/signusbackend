@@ -7,10 +7,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import io.swagger.v3.oas.annotations.Hidden;
 
 @RestController
-public class SwaggerController {
+public class RedirectLoginController {
     @Hidden
 	@GetMapping("/")
-    public RedirectView redirectToSwagger() {
+    public RedirectView redirectToLogin() {
         return new RedirectView("/admin-login.html");
     }
 }

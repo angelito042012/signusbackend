@@ -19,39 +19,51 @@ public class UsuarioEmpleadoServiceImpl implements UsuarioEmpleadoService {
         this.repo = repo;
     }
 
-    @Override
-    public Optional<UsuarioEmpleado> findByEmail(String email) {
-        return repo.findByEmail(email);
-    }
-
-    @Override
-    public UsuarioEmpleado save(UsuarioEmpleado usuario) {
-        return repo.save(usuario);
-    }
-
-    @Override
-    public List<UsuarioEmpleado> findAll() {
-        return repo.findAll();
-    }
-
-    @Override
-    public Optional<UsuarioEmpleado> findById(Integer id) {
-        return repo.findById(id);
-    }
-
-    @Override
-    public UsuarioEmpleado registrarUsuarioEmpleado(UsuarioEmpleado usuarioEmpleado) {
-        return repo.save(usuarioEmpleado);
-    }
-
-    @Override
-    public Optional<UsuarioEmpleado> obtenerPorEmail(String email) {
-        return repo.findByEmail(email);
-    }
 
     @Override
     public boolean existePorEmail(String email) {
         return repo.findByEmail(email).isPresent();
+    }
+
+    @Override
+    public Optional<UsuarioEmpleado> buscarPorEmail(String email) {
+        return repo.findByEmail(email);
+    }
+
+    @Override
+    public UsuarioEmpleado guardarEmpleado(UsuarioEmpleado usuario) {
+        return repo.save(usuario);
+    }
+
+    @Override
+    public List<UsuarioEmpleado> listarEmpleados() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Optional<UsuarioEmpleado> buscarPorId(Integer id) {
+        return repo.findById(id);
+    }
+
+    @Override
+    public void eliminarPorId(Integer id) {
+        repo.deleteById(id);
+    }
+
+    @Override
+    public void desactivarUsuarioEmpleado(Integer id) {
+        Optional<UsuarioEmpleado> usuarioOpt = repo.findById(id);
+        if (usuarioOpt.isPresent()) {
+            UsuarioEmpleado usuario = usuarioOpt.get();
+            usuario.setEstado("INACTIVO"); // Suponiendo que hay un campo 'activo' en la entidad
+            repo.save(usuario);
+        }
+    }
+
+
+    @Override
+    public UsuarioEmpleado registrarUsuarioEmpleado(UsuarioEmpleado usuarioEmpleado) {
+        return repo.save(usuarioEmpleado);
     }
     
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.signusbackend.entity.Cliente;
 import com.example.signusbackend.service.ClienteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/api/clientes")
 @CrossOrigin(origins = "*") //restringir luego
@@ -27,24 +29,27 @@ public class ClienteController {
 
     // GET: listar todos los clientes
     @GetMapping
+    @Operation(summary = "Listar todos los clientes", description = "Obtiene una lista de todos los clientes registrados en el sistema.")
     public List<Cliente> listarClientes() {
         return clienteService.listarTodosLosClientes();
     }
 
     // POST: registrar un nuevo cliente
-    @PostMapping
+    /*@PostMapping
     public Cliente registrarCliente(@RequestBody Cliente cliente) {
         return clienteService.registrarCliente(cliente);
-    }
+    }*/
 
     // PUT: actualizar un cliente
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un cliente existente", description = "Actualiza los detalles de un cliente específico utilizando su ID.")
     public Cliente actualizarCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
         return clienteService.actualizarDatosCliente(id, cliente);
     }
 
     // DELETE: eliminar cliente
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un cliente", description = "Elimina un cliente específico del sistema utilizando su ID.")
     public void eliminarCliente(@PathVariable Integer id) {
         clienteService.eliminarCliente(id);
     }

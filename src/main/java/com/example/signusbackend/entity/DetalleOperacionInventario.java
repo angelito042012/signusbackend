@@ -30,6 +30,8 @@ public class DetalleOperacionInventario {
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
 
+    
+
     public Integer getIdDetalle() {
         return idDetalle;
     }

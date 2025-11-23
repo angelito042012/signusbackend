@@ -7,17 +7,20 @@ import com.example.signusbackend.entity.UsuarioEmpleado;
 
 public interface UsuarioEmpleadoService {
     
-    Optional<UsuarioEmpleado> findByEmail(String email);
+    Optional<UsuarioEmpleado> buscarPorEmail(String email);
 
-    UsuarioEmpleado save(UsuarioEmpleado usuario);
+    UsuarioEmpleado guardarEmpleado(UsuarioEmpleado usuario);
 
-    List<UsuarioEmpleado> findAll();
+    List<UsuarioEmpleado> listarEmpleados();
 
-    Optional<UsuarioEmpleado> findById(Integer id);
+    Optional<UsuarioEmpleado> buscarPorId(Integer id);
+
+    void eliminarPorId(Integer id);
+
+    boolean existePorEmail(String email);
 
     UsuarioEmpleado registrarUsuarioEmpleado(UsuarioEmpleado usuarioEmpleado);
 
-    Optional<UsuarioEmpleado> obtenerPorEmail(String email);
+    void desactivarUsuarioEmpleado(Integer id);
 
-    boolean existePorEmail(String email);
 }

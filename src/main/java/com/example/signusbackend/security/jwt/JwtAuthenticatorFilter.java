@@ -30,8 +30,8 @@ public class JwtAuthenticatorFilter extends OncePerRequestFilter {
 
         // NO filtrar login admin ni otros públicos
         return 
-            path.equals("/api/auth/register-admin")
-            || path.equals("/api/auth/login-admin")
+            path.equals("/api/auth/register/admin")
+            || path.equals("/api/auth/login/admin")
             || path.equals("/admin-login")
             || path.equals("/admin-register")
             || path.equals("/admin-login.html")

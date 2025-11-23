@@ -11,9 +11,17 @@ public interface UsuarioClienteService {
 
     Optional<UsuarioCliente> findByOauthProviderAndOauthId(String provider, String oauthId);
 
-    UsuarioCliente save(UsuarioCliente usuario);
-
     List<UsuarioCliente> findAll();
 
     Optional<UsuarioCliente> findById(Integer id);
+
+    boolean existePorEmail(String email);
+
+    UsuarioCliente registrarUsuarioCliente(UsuarioCliente usuario);
+
+    //esto no deberia de usarse
+    void deleteById(Integer id);
+
+    //metodo para desactivar un usuario cliente
+    void desactivarUsuarioCliente(Integer id);
 }

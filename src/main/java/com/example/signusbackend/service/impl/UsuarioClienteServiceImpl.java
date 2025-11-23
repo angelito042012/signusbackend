@@ -33,11 +33,6 @@ public class UsuarioClienteServiceImpl implements UsuarioClienteService{
     }
 
     @Override
-    public UsuarioCliente save(UsuarioCliente usuario) {
-        return repo.save(usuario);
-    }
-
-    @Override
     public List<UsuarioCliente> findAll() {
         return repo.findAll();
     }
@@ -45,6 +40,41 @@ public class UsuarioClienteServiceImpl implements UsuarioClienteService{
     @Override
     public Optional<UsuarioCliente> findById(Integer id) {
         return repo.findById(id);
+    }
+
+
+
+    @Override
+    public boolean existePorEmail(String email) {
+        return repo.findByEmail(email).isPresent();
+    }
+
+
+
+    @Override
+    public UsuarioCliente registrarUsuarioCliente(UsuarioCliente usuario) {
+        return repo.save(usuario);
+    }
+
+
+
+    @Override
+    public void deleteById(Integer id) {
+        repo.deleteById(id);
+    }
+
+
+
+    @Override
+    public void desactivarUsuarioCliente(Integer id) {
+        Optional<UsuarioCliente> usuarioOpt = repo.findById(id);
+        if (usuarioOpt.isPresent()) {
+            UsuarioCliente usuario = usuarioOpt.get();
+            usuario.setEstado("INACTIVO"); // Suponiendo que "INACTIVO" es el estado para desactivar
+            repo.save(usuario);
+        } else {
+            throw new RuntimeException("Usuario Cliente no encontrado");
+        }
     }
 
 }

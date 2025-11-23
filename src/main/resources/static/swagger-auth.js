@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (swaggerUI) {
             swaggerUI.src = "/api/swagger-ui/index.html";
             swaggerUI.onload = () => {
-                const iframeDoc = swaggerUI.contentDocument || swaggerUI.contentWindow.document;
-                iframeDoc.querySelector("header").setRequestHeader("Authorization", `Bearer ${token}`);
+                // Aquí no puedes modificar los encabezados de un iframe directamente
+                console.log("El token está disponible:", token);
             };
         }
     } else {
