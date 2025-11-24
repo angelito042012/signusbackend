@@ -32,7 +32,7 @@ public class SwaggerConfig {
             )
         )
             .servers(List.of(
-                //new Server().url("https://signusbackend-167116120987.us-east1.run.app").description("Producción"),
+                new Server().url("https://signusbackend-167116120987.us-east1.run.app").description("Producción"),
                 new Server().url("http://localhost:8080").description("Desarrollo")
             ))
         ;

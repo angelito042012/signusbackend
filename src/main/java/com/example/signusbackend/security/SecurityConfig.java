@@ -39,58 +39,56 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-
+                        
 
                         // ---------- PUBLIC ----------
                         .requestMatchers(HttpMethod.GET,"/").permitAll()
                         .requestMatchers("/favicon.ico").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/productos/**").permitAll()
-                        .requestMatchers("/api/categorias/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/productos").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/categorias").permitAll()
                         .requestMatchers("/admin-login", "/admin-login.html", "/swagger-auth.js").permitAll()
                         .requestMatchers("/admin-register", "/admin-register.html").permitAll()
-                        //.requestMatchers("/api/auth/register/admin").permitAll() // Permitir acceso público
-                        //.requestMatchers("/api/auth/login/admin").permitAll()
 
+                        // AUTH
+                        .requestMatchers("/api/auth/**").permitAll()
 
+                        // Productos (clientes compran sin login)
+                        .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
+                        
+                        // Ventas
+                        .requestMatchers("/api/ventas/**")
+                            .hasAnyRole("VENTAS", "ADMIN")
 
-                        // ---------- CLIENTE ----------
-                        .requestMatchers("/api/carrito/**").hasRole("CLIENTE")
-                        .requestMatchers("/api/ventas/online/**").hasRole("CLIENTE")
+                        // Pedidos
+                        .requestMatchers("/api/pedidos/**")
+                            .hasAnyRole("PEDIDOS", "ADMIN")
 
+                        // Operaciones inventario
+                        .requestMatchers("/api/operaciones-inventario/**")
+                            .hasAnyRole("ALMACEN", "ADMIN")
 
+                        // Movimientos inventario
+                        .requestMatchers("/api/movimientos-inventario/**")
+                            .hasAnyRole("ALMACEN", "ADMIN")
 
-                        /*.requestMatchers(HttpMethod.GET, "/api/ventas/**").hasAnyRole("ADMIN", "VENTAS", "PEDIDOS")
-                        .requestMatchers(HttpMethod.POST, "/api/ventas/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/ventas/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/ventas/**").hasRole("ADMIN")*/
+                        // Inventario general
+                        .requestMatchers("/api/inventario/**")
+                            .hasAnyRole("ALMACEN", "ADMIN")
 
                         
 
-                        // ---------- VENTAS ----------
-                        .requestMatchers(
-                            "/api/ventas/**",
-                            "/api/clientes/**",
-                            "/api/metodos-pago/**"
-                        ).hasAnyAuthority("ROLE_ADMIN", "ROLE_VENTAS")
+                        // Carritos (cliente y admin)
+                        .requestMatchers("/api/carritos/**")
+                            .hasAnyRole("CLIENTE", "ADMIN")
 
+                        // Crear/editar productos
+                        .requestMatchers(HttpMethod.POST, "/api/productos/**")
+                            .hasAnyRole("ADMIN", "ALMACEN")
+                        .requestMatchers(HttpMethod.PUT, "/api/productos/**")
+                            .hasAnyRole("ADMIN", "ALMACEN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/productos/**")
+                            .hasAnyRole("ADMIN", "ALMACEN")
 
-                        
-                        
-
-                        // ---------- ALMACEN ----------
-                        .requestMatchers(
-                            "/api/inventario/**",
-                            "/api/productos/**"
-                        ).hasAnyRole("ADMIN", "ALMACEN")
-
-
-
-
-                        // ----------- SWAGGER -----------
-                        .requestMatchers(
-                            "/api/ventas/**"
-                        ).hasAnyRole("ADMIN", "PEDIDOS")
 
 
                         // Swagger (solo ADMIN)
@@ -100,18 +98,44 @@ public class SecurityConfig {
 
                         // Los roles de mas alto privilegio deben ir al final
                         // ---------- ADMIN (TOTAL ACCESO) ----------
+
+                        // Métodos de pago
+                        .requestMatchers("/api/metodos-pago/**")
+                            .hasRole("ADMIN")
+
+                        // Empleados
+                        .requestMatchers("/api/empleados/**")
+                            .hasRole("ADMIN")
+
+                        // Clientes
+                        .requestMatchers("/api/clientes/**")
+                            .hasRole("ADMIN")
+
+                        // Categorías
+                        .requestMatchers("/api/categorias/**")
+                            .hasRole("ADMIN")
+
+                        // Usuarios empleados
+                        .requestMatchers("/api/usuarios-empleados/**")
+                            .hasRole("ADMIN")
+
+                        // Usuarios clientes
+                        .requestMatchers("/api/usuarios-clientes/**")
+                            .hasRole("ADMIN")
+                        
+
                         .requestMatchers(
                             "/api/empleados/**",
                             "/api/inventario/**",
                             "/api/metodos-pago/**",
                             "/api/clientes/**",
-                            "/api/ventas/**"
+                            "/api/ventas/**",
+                            "/api/productos/**"
                         ).hasRole("ADMIN")
 
 
                         // ----------- CUALQUIER OTRO ENDPOINT -----------
                         .anyRequest().authenticated()
-
 
 
                 )

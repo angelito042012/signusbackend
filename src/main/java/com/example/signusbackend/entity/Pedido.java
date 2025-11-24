@@ -29,8 +29,8 @@ public class Pedido {
     @Column(name = "estado", nullable = false, length = 30)
     private String estado;
 
-    @Column(name = "direccion", nullable = false, length = 255)
-    private String direccion;
+    @Column(name = "direccion_envio", nullable = false, length = 255)
+    private String direccionEnvio;
 
     @Column(name = "codigoseguimiento", length = 100)
     private String codigoSeguimiento;
@@ -70,16 +70,16 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
     public String getCodigoSeguimiento() {
         return codigoSeguimiento;
+    }
+
+    public String getDireccionEnvio() {
+        return direccionEnvio;
+    }
+
+    public void setDireccionEnvio(String direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
     }
 
     public void setCodigoSeguimiento(String codigoSeguimiento) {

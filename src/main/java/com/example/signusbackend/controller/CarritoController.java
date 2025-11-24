@@ -42,11 +42,11 @@ public class CarritoController {
 
     // Crear un carrito para un cliente
     // Aunque el cliente ya deberia de tener un carrito por default
-    @PostMapping("/crear/{idCliente}")
+    /*@PostMapping("/crear/{idCliente}")
     @Operation(summary = "Crear un carrito para un cliente", description = "Crea un nuevo carrito asociado a un cliente específico.")
     public Carrito crearCarrito(@PathVariable Integer idCliente) {
         return carritoService.crearCarrito(idCliente);
-    }
+    }*/
 
     // Obtener carrito por idCliente
     @GetMapping("/cliente/{idCliente}")

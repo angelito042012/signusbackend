@@ -59,6 +59,7 @@ public class AuthClienteController {
         }
     }
 
+    //Se incluye creacion del carrito al registrar el cliente (por el service)
     @PostMapping("/register/cliente")
     public ResponseEntity<?> registrarCliente(@RequestBody ClienteRegisterDTO clienteDTO) {
 
@@ -66,6 +67,8 @@ public class AuthClienteController {
             return ResponseEntity.badRequest().body("El email ya está registrado.");
         }
 
+        
+        //Crear usuario
         UsuarioCliente usuario = new UsuarioCliente();
 
         usuario.setEmail(clienteDTO.getEmail());
@@ -73,12 +76,15 @@ public class AuthClienteController {
         usuario.setFechaRegistro(LocalDateTime.now());
         usuario.setEstado("ACTIVO");
 
-
         UsuarioCliente usuarioGuardado = usuarioClienteService.registrarUsuarioCliente(usuario);
 
-        Cliente cliente =  new Cliente();
 
+        //Crear cliente asociado
+        Cliente cliente =  new Cliente();
         cliente.setUsuarioCliente(usuarioGuardado);
+
+
+        //Ya se incluye el metodo para registrar su carrito tambien
         clienteService.registrarCliente(cliente);
         
 

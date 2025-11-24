@@ -36,6 +36,8 @@ public class Producto {
     @Column(name = "estado")
     private Boolean estado;
 
+
+
     public Integer getIdProducto() {
         return idProducto;
     }

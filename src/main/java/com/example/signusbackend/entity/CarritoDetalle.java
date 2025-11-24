@@ -35,6 +35,8 @@ public class CarritoDetalle {
     @Column(name = "subtotal")
     private Double subtotal;
 
+
+
     public Integer getIdDetalle() {
         return idDetalle;
     }

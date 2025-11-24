@@ -30,21 +30,19 @@ public class CarritoServiceImpl implements CarritoService {
     }
 
     @Override
-    public Carrito crearCarrito(Integer idCliente) {
-
-        Cliente cliente = clienteRepository.findById(idCliente)
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + idCliente));
+    public Carrito crearCarrito(Carrito carrito) {
 
         // Evitar crear más de un carrito por cliente
-        if (carritoRepository.existsByCliente(cliente)) {
+        if (carritoRepository.existsByCliente(carrito.getCliente())) {
             throw new RuntimeException("El cliente ya tiene un carrito creado.");
         }
 
-        Carrito carrito = new Carrito();
-        carrito.setCliente(cliente);
+        // Establecer la fecha de modificación al momento de la creación
         carrito.setFechaModificacion(LocalDateTime.now());
 
+        // Guardar y devolver el carrito creado
         return carritoRepository.save(carrito);
+
     }
 
     @Override

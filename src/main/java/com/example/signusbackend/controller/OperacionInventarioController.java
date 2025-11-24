@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.signusbackend.entity.DetalleOperacionInventario;
 import com.example.signusbackend.entity.OperacionInventario;
+import com.example.signusbackend.entity.dto.OperacionInventarioRequestDTO;
 import com.example.signusbackend.service.DetalleOperacionInventarioService;
 import com.example.signusbackend.service.OperacionInventarioService;
 
@@ -35,12 +36,28 @@ public class OperacionInventarioController {
     //      CRUD OPERACION INVENTARIO
     // ============================================================
 
-    @PostMapping
+
+
+    @PostMapping("/registrar")
+    @Operation(summary = "Registrar operación de inventario con detalles")
+    public ResponseEntity<?> registrarOperacion(@RequestBody OperacionInventarioRequestDTO dto) {
+        try {
+            OperacionInventario operacion = operacionService.registrarOperacionConDetalles(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(operacion);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
+
+    /*@PostMapping
     @Operation(summary = "Crear una nueva operación de inventario", description = "Crea una nueva operación de inventario en el sistema.")
     public ResponseEntity<?> crearOperacion(@RequestBody OperacionInventario operacion) {
         OperacionInventario creada = operacionService.crearOperacionInventario(operacion);
         return ResponseEntity.status(HttpStatus.CREATED).body(creada);
-    }
+    }*/
 
     @GetMapping
     @Operation(summary = "Listar todas las operaciones de inventario", description = "Devuelve una lista de todas las operaciones de inventario en el sistema.")

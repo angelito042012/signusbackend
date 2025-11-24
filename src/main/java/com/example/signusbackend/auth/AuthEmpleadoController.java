@@ -86,7 +86,7 @@ public class AuthEmpleadoController {
         usuario.setEmail(dto.getEmail());
         usuario.setContrasena(passwordEncoder.encode(dto.getPassword()));
         usuario.setFechaRegistro(new Date());
-        usuario.setEstado("ACTIVO");
+        usuario.setEstado("ACTIVO"); // ACTIVO | INACTIVO
 
         Empleado empleado = new Empleado();
         empleado.setNombres(dto.getNombres());

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.signusbackend.entity.OperacionInventario;
+import com.example.signusbackend.entity.dto.OperacionInventarioRequestDTO;
 
 public interface OperacionInventarioService {
     OperacionInventario crearOperacionInventario(OperacionInventario operacionInventario);
@@ -12,5 +13,5 @@ public interface OperacionInventarioService {
     void eliminarOperacionInventario(Integer idOperacion);
     OperacionInventario actualizarOperacionInventario(Integer idOperacion, OperacionInventario nuevaOperacion);
 
-    
+    OperacionInventario registrarOperacionConDetalles(OperacionInventarioRequestDTO dto);
 }

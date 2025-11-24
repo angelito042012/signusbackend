@@ -34,6 +34,8 @@ public class Inventario {
     @Column(name = "ubicacion")
     private String ubicacion;
 
+
+
     public Integer getIdInventario() {
         return idInventario;
     }

@@ -46,8 +46,8 @@ public class ProductoController {
     }
 
     // CREAR
-    @PostMapping
-    @Operation(summary = "Crear un nuevo producto", description = "Crea un nuevo producto en el sistema.")
+    @PostMapping("/crear")
+    @Operation(summary = "Crear un nuevo producto", description = "Crea un nuevo producto en el sistema y genera un inventario inicial para el producto.")
     public ResponseEntity<Producto> crear(@RequestBody Producto producto) {
         return ResponseEntity.ok(productoService.crearProducto(producto));
     }

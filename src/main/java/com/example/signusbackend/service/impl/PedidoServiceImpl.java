@@ -33,7 +33,7 @@ public class PedidoServiceImpl implements PedidoService {
     public Pedido crearPedidoDesdeVenta(Venta venta, String direccion, String tipoEnvio) {
         Pedido pedido = new Pedido();
         pedido.setVenta(venta);
-        pedido.setDireccion(direccion);
+        pedido.setDireccionEnvio(direccion);
         pedido.setTipoEnvio(tipoEnvio);
         pedido.setEstado("en proceso"); // Estado inicial
         return pedidoRepository.save(pedido);
@@ -44,7 +44,7 @@ public class PedidoServiceImpl implements PedidoService {
         Optional<Pedido> pedidoExistente = pedidoRepository.findById(idPedido);
         if (pedidoExistente.isPresent()) {
             Pedido pedido = pedidoExistente.get();
-            pedido.setDireccion(pedidoActualizado.getDireccion());
+            pedido.setDireccionEnvio(pedidoActualizado.getDireccionEnvio());
             pedido.setTipoEnvio(pedidoActualizado.getTipoEnvio());
             pedido.setCodigoSeguimiento(pedidoActualizado.getCodigoSeguimiento());
             return pedidoRepository.save(pedido);

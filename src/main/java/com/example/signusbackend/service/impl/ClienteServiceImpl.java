@@ -1,20 +1,27 @@
 package com.example.signusbackend.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.signusbackend.entity.Carrito;
 import com.example.signusbackend.entity.Cliente;
 import com.example.signusbackend.repository.ClienteRepository;
+import com.example.signusbackend.service.CarritoService;
 import com.example.signusbackend.service.ClienteService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{
 
     private final ClienteRepository clienteRepository;
+    private final CarritoService carritoService;
 
-    public ClienteServiceImpl(ClienteRepository clienteRepository) {
+    public ClienteServiceImpl(ClienteRepository clienteRepository, CarritoService carritoService) {
         this.clienteRepository = clienteRepository;
+        this.carritoService = carritoService;
     }
 
     @Override
@@ -24,9 +31,20 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
+    @Transactional
     public Cliente registrarCliente(Cliente cliente) {
-        // Guarda un nuevo cliente en la base de datos
-        return clienteRepository.save(cliente);
+        // 1. Guardar cliente
+        Cliente guardado = clienteRepository.save(cliente);
+
+        // 2. Crear carrito vacío
+        Carrito carrito = new Carrito();
+        carrito.setCliente(guardado);
+        carrito.setFechaModificacion(LocalDateTime.now());
+        carrito.setEstado("ACTIVO");
+
+        carritoService.crearCarrito(carrito);
+
+        return guardado;
     }
 
     @Override
