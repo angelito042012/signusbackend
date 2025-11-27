@@ -2,12 +2,14 @@ package com.example.signusbackend.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.example.signusbackend.entity.Carrito;
 import com.example.signusbackend.entity.Cliente;
 import com.example.signusbackend.repository.ClienteRepository;
+import com.example.signusbackend.repository.UsuarioClienteRepository;
 import com.example.signusbackend.service.CarritoService;
 import com.example.signusbackend.service.ClienteService;
 
@@ -77,5 +79,18 @@ public class ClienteServiceImpl implements ClienteService{
         // Elimina el cliente de la base de datos
         clienteRepository.deleteById(id);
     }
+
+    @Override
+    public Cliente buscarClientePorId(Integer id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + id));
+    }
+
+    @Override
+    public Cliente findByUsuarioClienteEmail(String email) {
+        return clienteRepository.findByUsuarioClienteEmail(email)
+            .orElseThrow(() -> new RuntimeException("Cliente no encontrado con el email: " + email));
+    }
+
     
 }

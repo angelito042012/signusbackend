@@ -45,7 +45,13 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.listarPedidosPorEstado(estado));
     }
 
-    
+    // Buscar un pedido por ID
+
+    @GetMapping("/{idPedido}")
+    @Operation(summary = "Obtener un pedido por ID", description = "Obtiene los detalles de un pedido específico utilizando su ID.")
+    public ResponseEntity<Pedido> obtenerPedidoPorId(@PathVariable Integer idPedido) {
+        return ResponseEntity.ok(pedidoService.obtenerPedidoPorId(idPedido));
+    }
 
     //
     //Deberia replantear este endpoint

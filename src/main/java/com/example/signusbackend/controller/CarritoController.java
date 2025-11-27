@@ -76,11 +76,13 @@ public class CarritoController {
 
 
     @GetMapping("/{idCarrito}/detalles")
+    @Operation(summary = "Listar detalles de un carrito", description = "Obtiene una lista de todos los detalles (productos) asociados a un carrito específico.")
     public List<CarritoDetalle> listarDetalles(@PathVariable Integer idCarrito) {
         return detalleService.listarDetallesPorCarrito(idCarrito);
     }
 
     @PostMapping("/{idCarrito}/detalles")
+    @Operation(summary = "Agregar un producto al carrito", description = "Agrega un producto específico al carrito con la cantidad indicada.")
     public CarritoDetalle agregarProducto(
             @PathVariable Integer idCarrito,
             @RequestParam Integer idProducto,
@@ -89,6 +91,7 @@ public class CarritoController {
     }
 
     @PutMapping("/{idCarrito}/detalles/{idDetalle}")
+    @Operation(summary = "Actualizar la cantidad de un producto en el carrito", description = "Actualiza la cantidad de un producto específico en el carrito.")
     public CarritoDetalle actualizarCantidad(
             @PathVariable Integer idDetalle,
             @RequestParam Integer cantidad) {
@@ -96,6 +99,7 @@ public class CarritoController {
     }
 
     @DeleteMapping("/{idCarrito}/detalles/{idDetalle}")
+    @Operation(summary = "Eliminar un producto del carrito", description = "Elimina un producto específico del carrito utilizando el ID del detalle.")
     public void eliminarDetalle(@PathVariable Integer idDetalle) {
         detalleService.eliminarDetalle(idDetalle);
     }

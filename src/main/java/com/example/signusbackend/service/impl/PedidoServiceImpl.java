@@ -30,10 +30,10 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public Pedido crearPedidoDesdeVenta(Venta venta, String direccion, String tipoEnvio) {
+    public Pedido crearPedidoDesdeVenta(Venta venta, String direccionEnvio, String tipoEnvio) {
         Pedido pedido = new Pedido();
         pedido.setVenta(venta);
-        pedido.setDireccionEnvio(direccion);
+        pedido.setDireccionEnvio(direccionEnvio);
         pedido.setTipoEnvio(tipoEnvio);
         pedido.setEstado("en proceso"); // Estado inicial
         return pedidoRepository.save(pedido);
@@ -69,6 +69,16 @@ public class PedidoServiceImpl implements PedidoService {
     public void eliminarPedido(Integer idPedido) {
         if (pedidoRepository.existsById(idPedido)) {
             pedidoRepository.deleteById(idPedido);
+        } else {
+            throw new RuntimeException("Pedido no encontrado con ID: " + idPedido);
+        }
+    }
+
+    @Override
+    public Pedido obtenerPedidoPorId(Integer idPedido) {
+        Optional<Pedido> pedidoExistente = pedidoRepository.findById(idPedido);
+        if (pedidoExistente.isPresent()) {
+            return pedidoExistente.get();
         } else {
             throw new RuntimeException("Pedido no encontrado con ID: " + idPedido);
         }

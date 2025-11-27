@@ -2,6 +2,7 @@ package com.example.signusbackend.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,21 @@ public class ClienteController {
     @Operation(summary = "Listar todos los clientes", description = "Obtiene una lista de todos los clientes registrados en el sistema.")
     public List<Cliente> listarClientes() {
         return clienteService.listarTodosLosClientes();
+    }
+
+    // GET: Listar cliente por ID
+    @GetMapping("/{id}")
+    @Operation(summary = "Obtener un cliente por ID", description = "Obtiene los detalles de un cliente específico utilizando su ID.")
+    public Cliente obtenerClientePorId(@PathVariable Integer id) {
+        return clienteService.buscarClientePorId(id);
+    }
+
+    // GET: Listar cliente por email
+    @GetMapping("/email/{email}")
+    @Operation(summary = "Obtener un cliente por email", description = "Obtiene los detalles de un cliente específico utilizando su email.")
+    public ResponseEntity<Cliente> obtenerClientePorEmail(@PathVariable String email) {
+        Cliente cliente = clienteService.findByUsuarioClienteEmail(email);
+        return ResponseEntity.ok(cliente);
     }
 
     // POST: registrar un nuevo cliente

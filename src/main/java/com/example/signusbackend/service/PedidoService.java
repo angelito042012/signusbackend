@@ -8,7 +8,8 @@ import com.example.signusbackend.entity.Venta;
 public interface PedidoService {
     List<Pedido> listarPedidos();
     List<Pedido> listarPedidosPorEstado(String estado);
-    Pedido crearPedidoDesdeVenta(Venta venta, String direccion, String tipoEnvio);
+    Pedido obtenerPedidoPorId(Integer idPedido);
+    Pedido crearPedidoDesdeVenta(Venta venta, String direccionEnvio, String tipoEnvio);
     Pedido modificarPedido(Integer idPedido, Pedido pedidoActualizado);
     Pedido modificarEstadoPedido(Integer idPedido, String nuevoEstado);
     void eliminarPedido(Integer idPedido);
