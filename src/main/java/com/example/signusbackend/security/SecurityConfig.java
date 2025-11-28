@@ -64,12 +64,42 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
 
                         // Ventas
-                        .requestMatchers("/api/ventas/**")
-                            .hasAnyRole("VENTAS", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/ventas")
+                            .hasAnyRole("VENTAS", "ADMIN") // Listar todas las ventas
+                        .requestMatchers(HttpMethod.GET, "/api/ventas/{idVenta}")
+                            .hasAnyRole("VENTAS", "ADMIN") // Obtener una venta por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/ventas/{idVenta}")
+                            .hasAnyRole("VENTAS", "ADMIN") // Actualizar una venta existente
+                        .requestMatchers(HttpMethod.DELETE, "/api/ventas/{idVenta}")
+                            .hasAnyRole("VENTAS", "ADMIN") // Eliminar una venta
+                        .requestMatchers(HttpMethod.GET, "/api/ventas/{idVenta}/detalles")
+                            .hasAnyRole("VENTAS", "ADMIN") // Listar detalles de una venta
+                        .requestMatchers(HttpMethod.POST, "/api/ventas/{idVenta}/detalles")
+                            .hasAnyRole("VENTAS", "ADMIN") // Agregar un detalle a una venta
+                        .requestMatchers(HttpMethod.POST, "/api/ventas/registrar")
+                            .hasAnyRole("VENTAS", "ADMIN") // Registrar una nueva venta física
+                        .requestMatchers(HttpMethod.DELETE, "/api/ventas/{idVenta}/detalles/{idDetalle}")
+                            .hasAnyRole("VENTAS", "ADMIN") // Eliminar un detalle de una venta
 
                         // Pedidos
-                        .requestMatchers("/api/pedidos/**")
-                            .hasAnyRole("PEDIDOS", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos")
+                            .hasAnyRole("PEDIDOS", "ADMIN") // Listar todos los pedidos
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/{idPedido}")
+                            .hasAnyRole("CLIENTE", "PEDIDOS", "ADMIN") // Obtener un pedido por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/pedidos/{idPedido}")
+                            .hasAnyRole("PEDIDOS", "ADMIN") // Modificar un pedido
+                        .requestMatchers(HttpMethod.DELETE, "/api/pedidos/{idPedido}")
+                            .hasAnyRole("PEDIDOS", "ADMIN") // Eliminar un pedido
+                        .requestMatchers(HttpMethod.POST, "/api/pedidos/crear-desde-venta")
+                            .hasAnyRole("PEDIDOS", "ADMIN") // Crear un pedido desde una venta
+                        .requestMatchers(HttpMethod.PATCH, "/api/pedidos/{idPedido}/estado")
+                            .hasAnyRole("PEDIDOS", "ADMIN") // Modificar el estado de un pedido
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/estado/{estado}")
+                            .hasAnyRole("PEDIDOS", "ADMIN") // Listar pedidos por estado
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/cliente/email/{email}")
+                            .hasAnyRole("CLIENTE", "PEDIDOS", "ADMIN") // Listar pedidos por email del cliente
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/{idPedido}/venta/detalles")
+                            .hasAnyRole("CLIENTE", "PEDIDOS", "ADMIN") // Obtener detalles de venta de un pedido
 
                         // Operaciones inventario
                         .requestMatchers("/api/operaciones-inventario/**")
@@ -106,6 +136,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/clientes/{id}")
                             .hasRole("ADMIN") // Eliminar un cliente
 
+                        // Compras online
+                        .requestMatchers(HttpMethod.POST, "/api/compras/online")
+                            .hasAnyRole("CLIENTE", "ADMIN") // Crear una compra online
                         
                         // Carritos
                         .requestMatchers(HttpMethod.GET, "/api/carritos")
@@ -124,6 +157,8 @@ public class SecurityConfig {
                             .hasAnyRole("CLIENTE", "ADMIN") // Listar detalles de un carrito
                         .requestMatchers(HttpMethod.POST, "/api/carritos/{idCarrito}/detalles")
                             .hasAnyRole("CLIENTE", "ADMIN") // Agregar un producto al carrito
+                        .requestMatchers(HttpMethod.DELETE, "/api/carritos/{idCarrito}/detalles/eliminar")
+                            .hasAnyRole("CLIENTE", "ADMIN")
 
                         
                         // Crear/editar productos
@@ -215,7 +250,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200", "https://signusfrontend-dnrv.vercel.app"));
+        config.setAllowedOrigins(List.of("http://localhost:4200", "https://signusfrontend-dnrv.vercel.app", "https://signusfrontend.vercel.app/"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Content-Type", "Authorization"));
         config.setAllowCredentials(true);

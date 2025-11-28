@@ -21,7 +21,7 @@ public class MovimientoInventario {
     private Integer idMovimiento;
 
     @ManyToOne
-    @JoinColumn(name = "id_encargado", referencedColumnName = "id_empleado", nullable = false)
+    @JoinColumn(name = "id_encargado", referencedColumnName = "id_empleado", nullable = true)
     private Empleado encargado;
 
     @ManyToOne

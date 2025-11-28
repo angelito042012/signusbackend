@@ -12,6 +12,8 @@ import com.example.signusbackend.repository.CarritoRepository;
 import com.example.signusbackend.repository.ProductoRepository;
 import com.example.signusbackend.service.CarritoDetalleService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CarritoDetalleServiceImpl implements CarritoDetalleService {
 
@@ -83,5 +85,15 @@ public class CarritoDetalleServiceImpl implements CarritoDetalleService {
 
         detalleRepository.deleteById(idDetalle);
     }
-    
+
+    @Override
+    @Transactional
+    public void eliminarDetallesPorCarrito(Integer idCarrito) {
+        Carrito carrito = carritoRepository.findById(idCarrito)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+
+        // Eliminar todos los detalles asociados al carrito
+        detalleRepository.deleteByCarrito(carrito);
+    }
+
 }

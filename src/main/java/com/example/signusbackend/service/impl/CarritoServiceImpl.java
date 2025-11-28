@@ -11,6 +11,8 @@ import com.example.signusbackend.repository.CarritoRepository;
 import com.example.signusbackend.repository.ClienteRepository;
 import com.example.signusbackend.service.CarritoService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CarritoServiceImpl implements CarritoService {
 

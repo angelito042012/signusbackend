@@ -9,6 +9,8 @@ public interface MetodoPagoService {
 
     MetodoPago obtenerPorId(Integer idMetodo);
 
+    MetodoPago obtenerPorNombre(String nombre);
+
     MetodoPago crearMetodo(MetodoPago metodoPago);
 
     MetodoPago actualizarMetodo(Integer idMetodo, MetodoPago metodoPago);

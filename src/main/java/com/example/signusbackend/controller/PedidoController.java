@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.signusbackend.entity.DetalleVenta;
 import com.example.signusbackend.entity.Pedido;
 import com.example.signusbackend.entity.Venta;
 import com.example.signusbackend.service.PedidoService;
@@ -36,6 +37,14 @@ public class PedidoController {
     @Operation(summary = "Listar todos los pedidos", description = "Obtiene una lista de todos los pedidos registrados en el sistema.")
     public ResponseEntity<List<Pedido>> listarPedidos() {
         return ResponseEntity.ok(pedidoService.listarPedidos());
+    }
+
+    //Listar pedidos por email del cliente
+    @GetMapping("/cliente/email/{email}")
+    @Operation(summary = "Listar pedidos por email del cliente", description = "Obtiene una lista de pedidos asociados al email del cliente.")
+    public ResponseEntity<List<Pedido>> listarPedidosPorEmailCliente(@PathVariable String email) {
+        List<Pedido> pedidos = pedidoService.listarPedidosPorEmailCliente(email);
+        return ResponseEntity.ok(pedidos);
     }
 
     // Listar pedidos por estado
@@ -90,5 +99,10 @@ public class PedidoController {
         return ResponseEntity.noContent().build();
     }
 
-    
+    @GetMapping("/{idPedido}/venta/detalles")
+    @Operation(summary = "Obtener detalles de venta de un pedido", description = "Obtiene la lista de detalles de venta asociados a un pedido específico utilizando su ID.")
+    public ResponseEntity<List<DetalleVenta>> obtenerDetallesDeVentaDePedido(@PathVariable Integer idPedido) {
+        List<DetalleVenta> detalles = pedidoService.obtenerDetallesDeVentaDePedido(idPedido);
+        return ResponseEntity.ok(detalles);
+    }
 }

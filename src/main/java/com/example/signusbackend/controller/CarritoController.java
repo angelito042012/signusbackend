@@ -2,6 +2,7 @@ package com.example.signusbackend.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import com.example.signusbackend.service.CarritoDetalleService;
 import com.example.signusbackend.service.CarritoService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/api/carritos")
@@ -103,5 +105,13 @@ public class CarritoController {
     public void eliminarDetalle(@PathVariable Integer idDetalle) {
         detalleService.eliminarDetalle(idDetalle);
     }
-    
+
+    @DeleteMapping("/{idCarrito}/detalles/eliminar")
+    @Operation(summary = "Eliminar todos los detalles de un carrito", description = "Elimina todos los detalles (productos) asociados a un carrito específico.")
+    @ApiResponse(responseCode = "204", description = "Detalles eliminados correctamente")
+    @ApiResponse(responseCode = "404", description = "Carrito no encontrado")
+    public ResponseEntity<Void> eliminarDetallesPorCarrito(@PathVariable Integer idCarrito) {
+        detalleService.eliminarDetallesPorCarrito(idCarrito);
+        return ResponseEntity.noContent().build();
+    }
 }

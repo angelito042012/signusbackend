@@ -16,4 +16,6 @@ public interface CarritoDetalleRepository extends JpaRepository<CarritoDetalle, 
     boolean existsByCarritoAndProducto(Carrito carrito, Producto producto);
 
     Optional<CarritoDetalle> findByCarritoAndProducto(Carrito carrito, Producto producto);
+
+    void deleteByCarrito(Carrito carrito);
 }

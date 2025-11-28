@@ -54,4 +54,10 @@ public class MetodoPagoServiceImpl implements MetodoPagoService {
         metodoPagoRepository.deleteById(idMetodo);
     }
 
+    @Override
+    public MetodoPago obtenerPorNombre(String nombre) {
+        return metodoPagoRepository.findByNombre(nombre)
+            .orElseThrow(() -> new RuntimeException("Método de pago no encontrado con nombre: " + nombre));
+    }
+
 }

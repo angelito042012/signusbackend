@@ -14,4 +14,6 @@ public interface CarritoDetalleService {
 
     void eliminarDetalle(Integer idDetalle);
 
+    void eliminarDetallesPorCarrito(Integer idCarrito);
+
 }

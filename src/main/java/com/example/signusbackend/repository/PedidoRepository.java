@@ -8,4 +8,5 @@ import com.example.signusbackend.entity.Pedido;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
     List<Pedido> findByEstado(String estado);
+    List<Pedido> findByVenta_Cliente_IdCliente(Integer idCliente);
 }

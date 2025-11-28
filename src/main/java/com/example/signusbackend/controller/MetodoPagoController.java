@@ -40,6 +40,12 @@ public class MetodoPagoController {
         return metodoPagoService.obtenerPorId(idMetodo);
     }
 
+    @GetMapping("/nombre/{nombre}")
+    @Operation(summary = "Obtener un método de pago por nombre", description = "Obtiene los detalles de un método de pago específico utilizando su nombre.")
+    public MetodoPago obtenerPorNombre(@PathVariable String nombre) {
+        return metodoPagoService.obtenerPorNombre(nombre);
+    }
+
     @PostMapping
     @Operation(summary = "Crear un nuevo método de pago", description = "Crea un nuevo método de pago en el sistema.")
     public MetodoPago crear(@RequestBody MetodoPago metodoPago) {
