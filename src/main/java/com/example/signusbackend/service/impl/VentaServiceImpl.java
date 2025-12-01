@@ -108,8 +108,14 @@ public class VentaServiceImpl implements VentaService {
     @Transactional
     public Venta registrarVentaFisica(VentaRegistrarDTO dto) {
 
-        Cliente cliente = clienteRepository.findById(dto.getIdCliente())
+        Cliente cliente = null;
+
+
+
+        if (dto.getIdCliente() != null) {
+            cliente = clienteRepository.findById(dto.getIdCliente())
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+        }
 
         Empleado vendedor = empleadoRepository.findById(dto.getIdVendedor())
                 .orElseThrow(() -> new RuntimeException("Vendedor no encontrado"));
@@ -127,7 +133,8 @@ public class VentaServiceImpl implements VentaService {
         venta.setTotal(dto.getTotal());
         venta.setEstado("COMPLETADA");
 
-        ventaRepository.save(venta);
+        Venta ventaGuardada = ventaRepository.save(venta); // Guardar la venta y obtener el objeto persistido
+
 
         // 2. Procesar cada detalle
         for (DetalleVentaDTO d : dto.getDetalles()) {
@@ -144,7 +151,7 @@ public class VentaServiceImpl implements VentaService {
 
             // 2.1 Crear detalle de venta
             DetalleVenta detalle = new DetalleVenta();
-            detalle.setVenta(venta);
+            detalle.setVenta(ventaGuardada);
             detalle.setProducto(producto);
             detalle.setCantidad(d.getCantidad());
             detalle.setPrecioUnitario(d.getPrecioUnitario());
@@ -173,8 +180,8 @@ public class VentaServiceImpl implements VentaService {
         }
 
         //return "Venta registrada con éxito ID: " + venta.getIdVenta();
-        return venta; //el servicio esta definido para retornar la venta registrada
-        
+         //el servicio esta definido para retornar la venta registrada
+        return ventaGuardada; // Asegúrate de devolver el objeto persistido
     }
 
 }

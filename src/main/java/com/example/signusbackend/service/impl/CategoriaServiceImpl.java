@@ -62,4 +62,9 @@ public class CategoriaServiceImpl implements CategoriaService {
             .orElseThrow(() -> new RuntimeException("Categoría no encontrada con id: " + id));
     }
 
+    @Override
+    public Categoria obtenerCategoriaPorNombre(String nombre) {
+        return categoriaRepository.findByNombre(nombre);
+    }
+
 }

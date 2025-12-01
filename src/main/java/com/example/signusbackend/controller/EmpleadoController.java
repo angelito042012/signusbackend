@@ -97,6 +97,14 @@ public class EmpleadoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/email/{email}")
+    @Operation(summary = "Obtener un empleado por email de usuario", description = "Obtiene los detalles de un empleado específico utilizando el email de su usuario asociado.")
+    public ResponseEntity<Empleado> obtenerPorEmail(@PathVariable String email) {
+        return empleadoService.buscarPorUsuarioEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
 
     /*@PostMapping("/register/admin")

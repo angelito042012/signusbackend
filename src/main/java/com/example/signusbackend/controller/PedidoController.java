@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/api/pedidos")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:4200", "https://signusfrontend-dnrv.vercel.app", "https://signusfrontend.vercel.app"})
 public class PedidoController {
     private final PedidoService pedidoService;
 

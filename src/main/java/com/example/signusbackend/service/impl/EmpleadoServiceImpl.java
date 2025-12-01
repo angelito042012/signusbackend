@@ -75,4 +75,9 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         return empleadoRepository.findByUsuarioEmpleado(usuarioEmpleado);
     }
 
+    @Override
+    public Optional<Empleado> buscarPorUsuarioEmail(String email) {
+        return empleadoRepository.findByUsuarioEmpleado_Email(email);
+    }
+
 }

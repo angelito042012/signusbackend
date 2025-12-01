@@ -21,4 +21,6 @@ public interface EmpleadoService {
     Optional<Empleado> obtenerPorUsuario(Integer idUsuario);
 
     Optional<Empleado> buscarPorUsuario(UsuarioEmpleado usuarioEmpleado);
+
+    Optional<Empleado> buscarPorUsuarioEmail(String email);
 }

@@ -66,4 +66,11 @@ public class CategoriaController {
         categoriaService.eliminarCategoria(id);
         return ResponseEntity.noContent().build();
     }
+
+    // OBTENER POR NOMBRE
+    @GetMapping("/nombre/{nombre}")
+    @Operation(summary = "Obtener una categoría por nombre", description = "Obtiene los detalles de una categoría específica utilizando su nombre.")
+    public ResponseEntity<Categoria> obtenerPorNombre(@PathVariable String nombre) {
+        return ResponseEntity.ok(categoriaService.obtenerCategoriaPorNombre(nombre));
+    }
 }

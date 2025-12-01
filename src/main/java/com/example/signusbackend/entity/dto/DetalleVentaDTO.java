@@ -7,6 +7,12 @@ public class DetalleVentaDTO {
 
 
     
+    public DetalleVentaDTO(Integer idProducto, Integer cantidad, Double precioUnitario) {
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+    }
+    
     public Integer getIdProducto() {
         return idProducto;
     }

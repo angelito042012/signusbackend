@@ -6,4 +6,5 @@ import com.example.signusbackend.entity.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
     // Puedes agregar métodos personalizados de consulta si es necesario
+    Categoria findByNombre(String nombre);
 }

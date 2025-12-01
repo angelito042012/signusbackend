@@ -12,4 +12,7 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Integer> {
     Optional<Empleado> findByUsuarioEmpleado_IdUsuario(Integer idUsuario);
 
     Optional<Empleado> findByUsuarioEmpleado(UsuarioEmpleado usuarioEmpleado);
+
+    Optional<Empleado> findByUsuarioEmpleado_Email(String email); // Nuevo método para buscar por email
+    
 }

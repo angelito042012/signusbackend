@@ -25,7 +25,7 @@ import com.example.signusbackend.service.OperacionInventarioService;
 import jakarta.transaction.Transactional;
 
 @Service
-public class OperacionInventarioServiceImpl implements OperacionInventarioService{
+public class OperacionInventarioServiceImpl implements OperacionInventarioService {
 
     private final OperacionInventarioRepository operacionRepository;
 
@@ -37,11 +37,11 @@ public class OperacionInventarioServiceImpl implements OperacionInventarioServic
     private final MovimientoInventarioRepository movimientoRepository;
 
     public OperacionInventarioServiceImpl(OperacionInventarioRepository operacionRepository,
-                                          EmpleadoRepository empleadoRepository,
-                                          DetalleOperacionInventarioRepository detalleRepository,
-                                          InventarioRepository inventarioRepository,
-                                          ProductoRepository productoRepository,
-                                          MovimientoInventarioRepository movimientoRepository) {
+            EmpleadoRepository empleadoRepository,
+            DetalleOperacionInventarioRepository detalleRepository,
+            InventarioRepository inventarioRepository,
+            ProductoRepository productoRepository,
+            MovimientoInventarioRepository movimientoRepository) {
         this.operacionRepository = operacionRepository;
         this.empleadoRepository = empleadoRepository;
         this.detalleRepository = detalleRepository;
@@ -88,7 +88,7 @@ public class OperacionInventarioServiceImpl implements OperacionInventarioServic
     @Override
     public OperacionInventario registrarOperacionConDetalles(OperacionInventarioRequestDTO dto) {
 
-        Empleado encargado = empleadoRepository.findById(dto.getEncargadoId())
+        Empleado encargado = empleadoRepository.findById(dto.getIdEncargado())
                 .orElseThrow(() -> new RuntimeException("Encargado no encontrado"));
 
         // 1. Crear operación
@@ -156,5 +156,5 @@ public class OperacionInventarioServiceImpl implements OperacionInventarioServic
         // se retorna la operacion registrada, asi esta puesto en el service interface
         return operacion;
     }
-    
+
 }

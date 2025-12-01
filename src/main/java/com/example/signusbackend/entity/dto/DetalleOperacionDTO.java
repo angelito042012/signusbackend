@@ -4,8 +4,12 @@ public class DetalleOperacionDTO {
     private Integer productoId;
     private Integer cantidad;
 
-
     
+    
+    public DetalleOperacionDTO(Integer productoId, Integer cantidad) {
+        this.productoId = productoId;
+        this.cantidad = cantidad;
+    }
     public Integer getProductoId() {
         return productoId;
     }

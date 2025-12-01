@@ -101,13 +101,47 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/pedidos/{idPedido}/venta/detalles")
                             .hasAnyRole("CLIENTE", "PEDIDOS", "ADMIN") // Obtener detalles de venta de un pedido
 
-                        // Operaciones inventario
-                        .requestMatchers("/api/operaciones-inventario/**")
-                            .hasAnyRole("ALMACEN", "ADMIN")
+                        // Operaciones de inventario
+                        .requestMatchers(HttpMethod.GET, "/api/operaciones-inventario/{id}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Obtener una operación de inventario por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/operaciones-inventario/{id}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Actualizar una operación de inventario
+                        .requestMatchers(HttpMethod.DELETE, "/api/operaciones-inventario/{id}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Eliminar una operación de inventario
+                        .requestMatchers(HttpMethod.GET, "/api/operaciones-inventario/detalles/{idDetalle}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Obtener un detalle de operación por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/operaciones-inventario/detalles/{idDetalle}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Actualizar un detalle de operación de inventario
+                        .requestMatchers(HttpMethod.DELETE, "/api/operaciones-inventario/detalles/{idDetalle}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Eliminar un detalle de operación de inventario
+                        .requestMatchers(HttpMethod.POST, "/api/operaciones-inventario/{idOperacion}/detalles")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Crear un nuevo detalle de operación de inventario
+                        .requestMatchers(HttpMethod.POST, "/api/operaciones-inventario/registrar")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Registrar operación de inventario con detalles
+                        .requestMatchers(HttpMethod.GET, "/api/operaciones-inventario")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Listar todas las operaciones de inventario
+                        .requestMatchers(HttpMethod.GET, "/api/operaciones-inventario/operacion/{idOperacion}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Obtener detalles de operación por ID de operación
+                        .requestMatchers(HttpMethod.GET, "/api/operaciones-inventario/detalles")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Listar todos los detalles de operación de inventario
 
-                        // Movimientos inventario
-                        .requestMatchers("/api/movimientos-inventario/**")
-                            .hasAnyRole("ALMACEN", "ADMIN")
+                        // Movimientos de inventario
+                        .requestMatchers(HttpMethod.GET, "/api/movimientos-inventario/{id}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Obtener un movimiento de inventario por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/movimientos-inventario/{id}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Actualizar un movimiento de inventario existente
+                        .requestMatchers(HttpMethod.DELETE, "/api/movimientos-inventario/{id}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Eliminar un movimiento de inventario
+                        .requestMatchers(HttpMethod.GET, "/api/movimientos-inventario")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Listar todos los movimientos de inventario
+                        .requestMatchers(HttpMethod.POST, "/api/movimientos-inventario")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Crear un nuevo movimiento de inventario
+                        .requestMatchers(HttpMethod.GET, "/api/movimientos-inventario/producto/{idProducto}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Listar movimientos de inventario por ID de producto
+                        .requestMatchers(HttpMethod.GET, "/api/movimientos-inventario/operacion/{idOperacion}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Listar movimientos de inventario por ID de operación
+                        .requestMatchers(HttpMethod.GET, "/api/movimientos-inventario/encargado/{idEmpleado}")
+                            .hasAnyRole("ALMACEN", "ADMIN") // Listar movimientos de inventario por ID de empleado encargado
 
                         // Inventario general
                         .requestMatchers(HttpMethod.GET, "/api/inventario")
@@ -162,8 +196,10 @@ public class SecurityConfig {
 
                         
                         // Crear/editar productos
-                        .requestMatchers(HttpMethod.POST, "/api/uploads/signed-url").hasAnyRole("ADMIN", "ALMACEN")
-                        .requestMatchers(HttpMethod.POST, "/api/productos/**").hasAnyRole("ADMIN", "ALMACEN")
+                        .requestMatchers(HttpMethod.POST, "/api/uploads/signed-url")
+                            .hasAnyRole("ADMIN", "ALMACEN")
+                        .requestMatchers(HttpMethod.POST, "/api/productos/**")
+                            .hasAnyRole("ADMIN", "ALMACEN")
                         .requestMatchers(HttpMethod.PUT, "/api/productos/**")
                             .hasAnyRole("ADMIN", "ALMACEN")
                         .requestMatchers(HttpMethod.DELETE, "/api/productos/**")
@@ -180,25 +216,75 @@ public class SecurityConfig {
                         // ---------- ADMIN (TOTAL ACCESO) ----------
 
                         // Métodos de pago
-                        .requestMatchers("/api/metodos-pago/**")
-                            .hasRole("ADMIN")
-
+                        .requestMatchers(HttpMethod.GET, "/api/metodos-pago/{idMetodo}")
+                            .permitAll() // Obtener un método de pago por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/metodos-pago/{idMetodo}")
+                            .hasRole("ADMIN") // Actualizar un método de pago existente
+                        .requestMatchers(HttpMethod.DELETE, "/api/metodos-pago/{idMetodo}")
+                            .hasRole("ADMIN") // Eliminar un método de pago
+                        .requestMatchers(HttpMethod.GET, "/api/metodos-pago")
+                            .permitAll() // Listar todos los métodos de pago
+                        .requestMatchers(HttpMethod.POST, "/api/metodos-pago")
+                            .hasRole("ADMIN") // Crear un nuevo método de pago
+                        .requestMatchers(HttpMethod.GET, "/api/metodos-pago/nombre/{nombre}")
+                            .permitAll() // Obtener un método de pago por nombre
+                        
                         // Empleados
-                        .requestMatchers("/api/empleados/**")
-                            .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/empleados/{id}")
+                            .hasRole("ADMIN") // Actualizar un empleado existente
+                        .requestMatchers(HttpMethod.DELETE, "/api/empleados/{id}")
+                            .hasRole("ADMIN") // Eliminar un empleado
+                        .requestMatchers(HttpMethod.GET, "/api/empleados")
+                            .hasRole("ADMIN") // Listar todos los empleados
+                        .requestMatchers(HttpMethod.POST, "/api/empleados")
+                            .hasRole("ADMIN") // Registrar un nuevo empleado
+                        .requestMatchers(HttpMethod.GET, "/api/empleados/usuario/{idUsuario}")
+                            .hasAnyRole("VENTAS", "ADMIN", "ALMACEN", "PEDIDOS") // Obtener un empleado por ID de usuario
+                        .requestMatchers(HttpMethod.GET, "/api/empleados/email/{email}")
+                            .hasAnyRole("VENTAS", "ADMIN", "ALMACEN", "PEDIDOS") // Obtener un empleado por email de usuario
 
 
                         // Categorías
-                        .requestMatchers("/api/categorias/**")
-                            .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/categorias/{id}")
+                            .permitAll() // Obtener una categoría por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/categorias/{id}")
+                            .hasRole("ADMIN") // Actualizar una categoría existente
+                        .requestMatchers(HttpMethod.DELETE, "/api/categorias/{id}")
+                            .hasRole("ADMIN") // Eliminar una categoría
+                        .requestMatchers(HttpMethod.GET, "/api/categorias")
+                            .permitAll() // Listar todas las categorías (público)
+                        .requestMatchers(HttpMethod.POST, "/api/categorias")
+                            .hasRole("ADMIN") // Crear una nueva categoría
+                        .requestMatchers(HttpMethod.GET, "/api/categorias/nombre/{nombre}")
+                            .permitAll() // Obtener una categoría por nombre (público)
 
                         // Usuarios empleados
-                        .requestMatchers("/api/usuarios-empleados/**")
-                            .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios-empleados/{id}")
+                            .hasRole("ADMIN") // Obtener un usuario empleado por ID
+                        .requestMatchers(HttpMethod.PUT, "/api/usuarios-empleados/{id}")
+                            .hasRole("ADMIN") // Actualizar un usuario empleado
+                        .requestMatchers(HttpMethod.DELETE, "/api/usuarios-empleados/{id}")
+                            .hasRole("ADMIN") // Eliminar un usuario empleado
+                        .requestMatchers(HttpMethod.PUT, "/api/usuarios-empleados/desactivar/{id}")
+                            .hasRole("ADMIN") // Desactivar un usuario empleado
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios-empleados")
+                            .hasRole("ADMIN") // Listar todos los usuarios de los empleados
 
                         // Usuarios clientes
-                        .requestMatchers("/api/usuarios-clientes/**")
-                            .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/usuarios-clientes/desactivar/{id}")
+                            .hasRole("ADMIN") // Desactivar un usuario cliente
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios-clientes")
+                            .hasRole("ADMIN") // Listar todos los usuarios de los clientes
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios-clientes/{id}")
+                            .hasAnyRole("ADMIN", "VENTAS") // Obtener un usuario cliente por ID
+                        .requestMatchers(HttpMethod.DELETE, "/api/usuarios-clientes/{id}")
+                            .hasRole("ADMIN") // Eliminar un usuario cliente
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios-clientes/oauth")
+                            .hasRole("ADMIN") // Obtener un usuario cliente por proveedor OAuth y ID OAuth
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios-clientes/exists/email/{email}")
+                            .hasRole("ADMIN") // Verificar existencia de usuario cliente por email
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios-clientes/email/{email}")
+                            .hasAnyRole("CLIENTE", "ADMIN", "VENTAS") // Obtener un usuario cliente por email
 
 
 
@@ -251,7 +337,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200", "https://signusfrontend-dnrv.vercel.app", "https://signusfrontend.vercel.app/"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Content-Type", "Authorization"));
         config.setAllowCredentials(true);
 
