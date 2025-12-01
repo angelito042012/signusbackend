@@ -65,15 +65,15 @@ public class SecurityConfig {
 
                         // Ventas
                         .requestMatchers(HttpMethod.GET, "/api/ventas")
-                            .hasAnyRole("VENTAS", "ADMIN") // Listar todas las ventas
+                            .hasAnyRole("PEDIDOS", "VENTAS", "ADMIN") // Listar todas las ventas
                         .requestMatchers(HttpMethod.GET, "/api/ventas/{idVenta}")
-                            .hasAnyRole("VENTAS", "ADMIN") // Obtener una venta por ID
+                            .hasAnyRole("PEDIDOS", "VENTAS", "ADMIN") // Obtener una venta por ID
                         .requestMatchers(HttpMethod.PUT, "/api/ventas/{idVenta}")
                             .hasAnyRole("VENTAS", "ADMIN") // Actualizar una venta existente
                         .requestMatchers(HttpMethod.DELETE, "/api/ventas/{idVenta}")
                             .hasAnyRole("VENTAS", "ADMIN") // Eliminar una venta
                         .requestMatchers(HttpMethod.GET, "/api/ventas/{idVenta}/detalles")
-                            .hasAnyRole("VENTAS", "ADMIN") // Listar detalles de una venta
+                            .hasAnyRole("PEDIDOS", "VENTAS", "ADMIN") // Listar detalles de una venta
                         .requestMatchers(HttpMethod.POST, "/api/ventas/{idVenta}/detalles")
                             .hasAnyRole("VENTAS", "ADMIN") // Agregar un detalle a una venta
                         .requestMatchers(HttpMethod.POST, "/api/ventas/registrar")
